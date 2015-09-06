@@ -1,0 +1,78 @@
+<html>
+  <head>
+    <!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+	  // assign variable to json data
+	  var hour = <?php echo $jsonarr ?>;
+
+      // Load the Visualization API and the piechart package.
+      google.load('visualization', '1.0', {'packages':['corechart', 'bar']});
+
+      // Set a callback to run when the Google Visualization API is loaded.
+      google.setOnLoadCallback(drawChart);
+
+      // Callback that creates and populates a data table,
+      // instantiates the pie chart, passes in the data and draws it.
+      function drawChart() {
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+		data.addColumn('timeofday', 'Time of Day');
+        data.addColumn('number', 'tweets');
+        data.addRows([
+			[{v: [1, 0, 0], f: '1 am'}, hour[0]],
+			[{v: [2, 0, 0], f: '2 am'}, hour[1]],
+			[{v: [3, 0, 0], f: '3 am'}, hour[2]],
+			[{v: [4, 0, 0], f: '4 am'}, hour[3]],
+			[{v: [5, 0, 0], f: '5 am'}, hour[4]],
+			[{v: [6, 0, 0], f: '6 am'}, hour[5]],
+			[{v: [7, 0, 0], f: '7 am'}, hour[6]],		
+			[{v: [8, 0, 0], f: '8 am'}, hour[7]],
+			[{v: [9, 0, 0], f: '9 am'}, hour[8]],
+			[{v: [10, 0, 0], f:'10 am'}, hour[9]],
+			[{v: [11, 0, 0], f: '11 am'}, hour[10]],
+			[{v: [12, 0, 0], f: '12 pm'}, hour[11]],
+			[{v: [13, 0, 0], f: '1 pm'}, hour[12]],
+			[{v: [14, 0, 0], f: '2 pm'}, hour[13]],
+			[{v: [15, 0, 0], f: '3 pm'}, hour[14]],
+			[{v: [16, 0, 0], f: '4 pm'}, hour[15]],
+			[{v: [17, 0, 0], f: '5 pm'}, hour[16]],
+			[{v: [18, 0, 0], f: '6 pm'}, hour[17]],
+			[{v: [19, 0, 0], f: '7 pm'}, hour[18]],
+			[{v: [20, 0, 0], f: '8 pm'}, hour[19]],
+			[{v: [21, 0, 0], f: '9 pm'}, hour[20]],
+			[{v: [22, 0, 0], f: '10 pm'}, hour[21]],
+			[{v: [23, 0, 0], f: '11 pm'}, hour[22]],
+			[{v: [24, 0, 0], f:'12 am'}, hour[23]],
+        ]);
+
+        // Set chart options
+        var options = {'title':'Most active tweets by hour',
+                       'width':1000,
+                       'height':600,
+					    hAxis: {
+						  title: 'Time of Day',
+						  format: 'h:mm a',
+						  viewWindow: {
+							min: [0, 30, 0],
+							max: [24, 30, 0]
+						  }
+						},
+						vAxis: {
+						  title: 'Number of tweets per hour'
+						}
+		};
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+    </script>
+  </head>
+
+  <body>
+    <!--Div that will hold the pie chart-->
+    <div id="chart_div"></div>
+  </body>
+</html>
